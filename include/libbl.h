@@ -89,7 +89,7 @@ bl_ent_t* global_manager      [GLOBAL_M_SIZE];
 
 bl_ent_t* bl_get_entity(c_c_t* name, bl_ent_t* _manager[GLOBAL_M_SIZE])
 {
-  for (unsigned int i = 0; i <= GLOBAL_M_SIZE; i++) {
+  for (u32_t i = 0; i <= GLOBAL_M_SIZE; i++) {
     if (_manager[i] == NULL)  { continue; }
     if (strcmp(name, _manager[i]->name) == 0) {
       return                  _manager[i];
@@ -105,7 +105,7 @@ void bl_register_entity(bl_ent_t* ent, bl_ent_t* _manager[GLOBAL_M_SIZE])
 
 f32_t global_vertices[32] = 
 {
-   // @Vertex Position      // @Color (RGBA)      // @UV Coord
+   // @Vertex Position      // @Color (RGB)       // @UV Coord
    0.5f,  0.5f, 0.0f,      1.0f, 1.0f, 0.0f,      0.0f, 0.0f,
    0.5f, -0.5f, 0.0f,      1.0f, 0.0f, 0.0f,      0.0f, 1.0f,
   -0.5f, -0.5f, 0.0f,      1.0f, 0.0f, 1.0f,      1.0f, 1.0f,
@@ -139,7 +139,7 @@ c_c_t* read_file_content(c_c_t* path)
   buffer =                    (b_t*) calloc(numbytes, sizeof(b_t));
   if (buffer == NULL)         { exit  (EXIT_FAILURE); }
 
-  fread                       (buffer, sizeof(char), numbytes, infile);
+  fread                       (buffer, sizeof(b_t), numbytes, infile);
   fclose                      (infile);
   return                      buffer;
 } 
@@ -270,7 +270,7 @@ void bind_indice_buffer(indice_buffer_t* ebo)
   glBindBuffer                (GL_ELEMENT_ARRAY_BUFFER, ebo->m_renderer_id);
 }
 
-void indice_buffer_data(intptr_t size, unsigned int* data)
+void indice_buffer_data(intptr_t size, u32_t* data)
 {
   glBufferData                (GL_ELEMENT_ARRAY_BUFFER, size, *&data, GL_STATIC_DRAW);
 }
