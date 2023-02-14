@@ -8,7 +8,29 @@
 #include <stdio.h>
 #include <math.h> // cos, sin
 #include "GLFW/glfw3.h"
+#include "linmath/linmath.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb/stb_image.h"
+
+#define LIBBL_USE_APPLE_OPENGL
+#define LIBBL_IMPLEMENTATION
 #include "libbl.h"
+
+f32_t global_vertices[32] = 
+{
+   // @Vertex Position      // @Color (RGB)       // @UV Coord
+   0.5f,  0.5f, 0.0f,      1.0f, 1.0f, 0.0f,      0.0f, 0.0f,
+   0.5f, -0.5f, 0.0f,      1.0f, 0.0f, 0.0f,      0.0f, 1.0f,
+  -0.5f, -0.5f, 0.0f,      1.0f, 0.0f, 1.0f,      1.0f, 1.0f,
+  -0.5f,  0.5f, 0.0f,      0.0f, 0.0f, 1.0f,      1.0f, 0.0f,
+};
+
+u32_t global_indices[6] = 
+{
+  0, 1, 3, // @first triangle
+  1, 3, 2, // @second triangle
+};
 
 void key_callback(GLFWwindow* window, u32_t key, u32_t scancode, u32_t action, u32_t mods);
 
@@ -71,7 +93,7 @@ int main(int argc, const char* argv[]) {
     );
 
     u32_t texture_id;
-    load_and_create_texture("./assets/base.png", &texture_id);
+    load_and_create_texture("./assets/base.png", &texture_id, GL_TEXTURE0, GL_TEXTURE_2D);
 
     mvp_location = glGetUniformLocation(program.m_program_id, "MVP");
     uTime_location = glGetUniformLocation(program.m_program_id, "uTime");
@@ -152,9 +174,8 @@ int main(int argc, const char* argv[]) {
                 glDeleteTextures(1, &texture_id);
                 detach_program(&program);
             }
-            
         }
-        
+
         // Controlls
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
             ent_player->position[0] = 

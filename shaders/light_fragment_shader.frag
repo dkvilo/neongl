@@ -51,5 +51,4 @@ void main()
 
   vec4 tex = texture2D(tex0, texCoord);
   gl_FragColor = vec4(tex.rgb * col.rgb, uv);
-
 }
