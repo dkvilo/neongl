@@ -1,4 +1,4 @@
-## Libbl99
+## NeonGL
 
 [Demo Video](https://youtu.be/Lv9nvTcUQJY)
 
@@ -17,7 +17,7 @@ Tested and run on Mac arm64/Intel
   $ ./build/libbl
 ```
 
-<img src="https://github.com/dkvilo/libbl99/blob/master/preview.gif" />
+<img src="https://github.com/dkvilo/neongl/blob/master/preview.gif" />
 
 ### TODO (Nice to have)
 
